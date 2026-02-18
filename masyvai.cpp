@@ -128,9 +128,9 @@ void output(studentas grupe[], int m) {
              << left << setw(20) << grupe[i].pavarde;
 
         if (grupe[i].tipas == "vid") {
-            cout << setw(15) << grupe[i].rez << setw(15) << "-" << endl;
+            cout << setw(15) << std::fixed << std::setprecision(2) << grupe[i].rez << setw(15) << "-" << endl;
         } else {
-            cout << setw(15) << "-" << setw(15) << grupe[i].rez << endl;
+            cout << setw(15) << "-" << setw(15) << std::fixed << std::setprecision(2) << grupe[i].rez << endl;
         }
     }
 }
