@@ -78,10 +78,10 @@ void output(const vector<studentas> &grupe) {
              << left << setw(20) << A.pavarde;
 
         if (A.tipas == "vid") {
-            cout << setw(15) << A.rez << setw(15) << "-" << endl;
+            cout << setw(15) << std::fixed << std::setprecision(2) << A.rez << setw(15) << "-" << endl;
         }
         else {
-            cout << setw(15) << "-" << setw(15) << A.rez << endl;
+            cout << setw(15) << "-" << setw(15) << std::fixed << std::setprecision(2) << A.rez << endl;
         }
     }
 }
