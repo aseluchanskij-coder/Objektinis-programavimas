@@ -2,6 +2,8 @@
 #include <string>
 #include <iomanip>
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
 
 using std::cout;
 using std::cin;
@@ -37,81 +39,138 @@ int skaiciaus_nusk() {
     }
 }
 
+int random_paz() {
+    return rand() % 10 + 1;
+}
+
+string random_vardas() {
+    string vardai[10] = {"Jonas","Petras","Mantas","Lukas","Tomas","Paulius","Alanas","Danielius","Povilas","Ernestas"};
+    return vardai[rand() % 10];
+}
+
+string random_pavarde() {
+    string pavardes[10] = {"Jonaitis","Petraitis","Kazlauskas","Balciunas","Jankauskas","Stankevicius","Vaitkus","Butkus","Urbonas","Zukauskas"};
+    return pavardes[rand() % 10];
+}
+
+void skaiciuoti(studentas &A, int sum) {
+    double skaicius;
+    if (A.tipas == "vid") {
+        skaicius = sum * 1.0 / A.paz_kiek;
+    } else {
+        std::sort(A.paz, A.paz + A.paz_kiek);
+        if (A.paz_kiek % 2 == 0)
+            skaicius = (A.paz[A.paz_kiek/2 - 1] + A.paz[A.paz_kiek/2]) / 2.0;
+        else
+            skaicius = A.paz[A.paz_kiek/2];
+    }
+    A.rez = 0.4 * skaicius + 0.6 * A.egz;
+}
+
 void input(studentas grupe[], int &m) {
     m = 0;
 
     while (true) {
-        studentas A;
+        cout << "1 - ranka, 2 - generuoti pazymius, 3 - generuoti viska, 4 - baigti: ";
+        int menu = skaiciaus_nusk();
+        if (menu == 4) break;
 
-        cout << "Iveskite studento varda (0 - baigti): ";
-        cin >> A.vardas;
-        if (A.vardas == "0") break;
+        if (menu == 3) {
+            cout << "Kiek studentu generuoti? ";
+            int kiek_stud = skaiciaus_nusk();
 
-        while (!string_nusk(A.vardas)) {
-            cout << "Klaida! Vardas negali tureti skaiciu ar simboliu. Bandykite dar karta: ";
-            cin >> A.vardas;
-        }
+            for (int k = 0; k < kiek_stud; k++) {
+                studentas A;
+                int temp[100];
+                A.paz_kiek = 0;
+                int sum = 0;
 
-        cout << "Iveskite studento pavarde: ";
-        cin >> A.pavarde;
-        while (!string_nusk(A.pavarde)) {
-            cout << "Klaida! Pavarde negali tureti skaiciu ar simboliu. Bandykite dar karta: ";
-            cin >> A.pavarde;
-        }
+                A.vardas = random_vardas();
+                A.pavarde = random_pavarde();
 
-        cout << "Iveskite studento pazymius (1-10). Ivedus 0 – baigti: " << endl;
+                int kiek = rand() % 5 + 3;
+                for (int i = 0; i < kiek; i++) {
+                    int r = random_paz();
+                    temp[A.paz_kiek++] = r;
+                    sum += r;
+                }
+                A.egz = random_paz();
 
-        int temp[100];
-        A.paz_kiek = 0;
-        int x;
+                A.paz = new int[A.paz_kiek];
+                for (int i = 0; i < A.paz_kiek; i++) A.paz[i] = temp[i];
 
-        while (true) {
-            x = skaiciaus_nusk();
+                cout << "Pasirinkite skaiciavimo buda (vid arba med): ";
+                cin >> A.tipas;
+                while (A.tipas != "vid" && A.tipas != "med") {
+                    cout << "Klaida! Pasirinkite 'vid' arba 'med': ";
+                    cin >> A.tipas;
+                }
 
-            if (x == 0) break;
-
-            if (x < 1 || x > 10) {
-                cout << "Klaida! Pazymys turi buti nuo 1 iki 10. Bandykite dar karta: ";
-                continue;
+                skaiciuoti(A, sum);
+                grupe[m++] = A;
             }
 
-            temp[A.paz_kiek] = x;
-            A.paz_kiek++;
+            continue;
+        }
+
+        studentas A;
+        int temp[100];
+        A.paz_kiek = 0;
+        int sum = 0;
+
+        if (menu == 1 || menu == 2) {
+            cout << "Iveskite studento varda (0 - baigti): ";
+            cin >> A.vardas;
+            if (A.vardas == "0") break;
+            while (!string_nusk(A.vardas)) {
+                cout << "Klaida! Vardas negali buti skaicius: ";
+                cin >> A.vardas;
+            }
+
+            cout << "Iveskite studento pavarde: ";
+            cin >> A.pavarde;
+            while (!string_nusk(A.pavarde)) {
+                cout << "Klaida! Pavarde negali buti skaicius: ";
+                cin >> A.pavarde;
+            }
+        }
+
+        if (menu == 1) {
+            cout << "Iveskite pazymius (1-10, 0 - baigti): " << endl;
+            while (true) {
+                int x = skaiciaus_nusk();
+                if (x == 0) break;
+                if (x < 1 || x > 10) continue;
+                temp[A.paz_kiek++] = x;
+                sum += x;
+            }
+            cout << "Iveskite egzamino bala: ";
+            A.egz = skaiciaus_nusk();
+            while (A.egz < 1 || A.egz > 10) A.egz = skaiciaus_nusk();
+        }
+
+        if (menu == 2) {
+            int kiek = rand() % 5 + 3;
+            for (int i = 0; i < kiek; i++) {
+                int r = random_paz();
+                temp[A.paz_kiek++] = r;
+                sum += r;
+            }
+            A.egz = random_paz();
         }
 
         A.paz = new int[A.paz_kiek];
-        int sum = 0;
-
-        for (int i = 0; i < A.paz_kiek; i++) {
-            A.paz[i] = temp[i];
-            sum += A.paz[i];
-        }
-
-        cout << "Iveskite egzamino bala: ";
-        A.egz = skaiciaus_nusk();
+        for (int i = 0; i < A.paz_kiek; i++) A.paz[i] = temp[i];
 
         cout << "Pasirinkite skaiciavimo buda (vid arba med): ";
         cin >> A.tipas;
-        while (A.tipas != "vid" && A.tipas != "med") {
-            cout << "Klaida! Galima rinktis tik 'vid' arba 'med'. Bandykite dar karta: ";
-            cin >> A.tipas;
-        }
+        while (A.tipas != "vid" && A.tipas != "med"){
+                cout << "Klaida! Pasirinkite 'vid' arba 'med': ";
+                cin >> A.tipas;
+        } 
 
-        double skaicius;
-
-        if (A.tipas == "vid") {
-            skaicius = sum * 1.0 / A.paz_kiek;
-        } else {
-            std::sort(A.paz, A.paz + A.paz_kiek);
-            if (A.paz_kiek % 2 == 0)
-                skaicius = (A.paz[A.paz_kiek/2 - 1] + A.paz[A.paz_kiek/2]) / 2.0;
-            else
-                skaicius = A.paz[A.paz_kiek/2];
-        }
-
-        A.rez = 0.4 * skaicius + 0.6 * A.egz;
-        grupe[m] = A;
-        m++;
+        skaiciuoti(A, sum);
+        grupe[m++] = A;
     }
 }
 
@@ -136,6 +195,7 @@ void output(studentas grupe[], int m) {
 }
 
 int main() {
+    srand(time(0));
     studentas grupe[100];
     int m;
 
