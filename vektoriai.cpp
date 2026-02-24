@@ -77,36 +77,39 @@ void input(vector<studentas> &grupe) {
         if (menu == 4) break;
 
         if (menu == 3) {
-            cout << "Kiek studentu generuoti? ";
-            int kiek_stud = skaiciaus_nusk();
+    cout << "Kiek studentu generuoti? ";
+    int kiek_stud = skaiciaus_nusk();
 
-            for (int k = 0; k < kiek_stud; k++) {
-                studentas A;
-                int sum = 0;
+    string bendras_tipas;
+    cout << "Skaiciuoti su vidurkiu (vid) ar mediana (med)? ";
+    cin >> bendras_tipas;
+    while (bendras_tipas != "vid" && bendras_tipas != "med") {
+        cout << "Klaida! Pasirinkite 'vid' arba 'med': ";
+        cin >> bendras_tipas;
+    }
 
-                A.vardas = random_vardas();
-                A.pavarde = random_pavarde();
+        for (int k = 0; k < kiek_stud; k++) {
+            studentas A;
+            int sum = 0;
 
-                int kiek = rand() % 5 + 3;
-                for (int i = 0; i < kiek; i++) {
-                    int r = random_paz();
-                    A.paz.push_back(r);
-                    sum += r;
-                }
-                A.egz = random_paz();
+            A.vardas = random_vardas();
+            A.pavarde = random_pavarde();
 
-                cout << "Skaiciuoti su vidurkiu (vid) ar mediana (med)? ";
-                cin >> A.tipas;
-                while (A.tipas != "vid" && A.tipas != "med") {
-                    cout << "Klaida! Pasirinkite 'vid' arba 'med': ";
-                    cin >> A.tipas;
-                }
-
-                skaiciuoti(A, sum);
-                grupe.push_back(A);
+            int kiek = rand() % 5 + 3;
+            for (int i = 0; i < kiek; i++) {
+                int r = random_paz();
+                A.paz.push_back(r);
+                sum += r;
             }
-            continue;
-        }
+            A.egz = random_paz();
+
+            A.tipas = bendras_tipas;  
+
+        skaiciuoti(A, sum);
+        grupe.push_back(A);
+    }
+        continue;
+    }
 
         studentas A;
         int sum = 0;
