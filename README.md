@@ -17,3 +17,9 @@ REZULTATAI.1 : 1 TYRIMAS — Failu kurimo sparta
 10000000 irasu failo kurimo laikas: 9.04963
 
 2 TYRIMAS - Duomenu apdorojimas
+| Failo dydis:                       | 1000        | 10000     | 100000   | 1000000  | 10000000 |
+|------------------------------------|-------------|-----------|----------|----------|----------|
+| Failo nuskaitymo laikas(s):        | 0.0016515   | 0.0165995 | 0.100474 | 0.964666 | 10.647   |
+| Studentų skirstymo laikas(s):      | 0.000661208 | 0.0110059 | 0.050126 | 0.503981 | 4.96271  |
+| Įrašymo į failus laikas(s):        | 0.00734433  | 0.0344782 | 0.222286 | 2.22069  | 25.1476  |
+| Visos programos veikimo laikas(s): | 0.00967396  | 0.062123  | 0.37293  | 3.68938  | 40.7573  |
