@@ -130,6 +130,7 @@ Optimaliausias bendram naudojimui – std::deque.
 🔬 REZULTATAI.4 — Strategijos
 
 2 strategija (vector) yra labai neefektyvi ir lėta.
+
 3 strategija (stable_partition) – greičiausia ir rekomenduojama visais atvejais.
 
 
@@ -149,10 +150,13 @@ sudo dnf install cmake gcc-c++ make
 Arch Linux
 
 sudo pacman -S cmake gcc make
+
 🪟 Windows (MSYS2)
 pacman -Syu
 pacman -Su
 pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake make
+
+
 🍏 macOS
 xcode-select --install
 brew install cmake
@@ -161,13 +165,17 @@ git clone -b v1.0 https://github.com/aseluchanskij-coder/Objektinis-programavima
 cd Objektinis-programavimas
 
 mkdir build
+
 cd build
 
 cmake ..
+
 cmake --build .
 
 Paleidimas:
 
 ./build/v1.0_vector
+
 ./build/v1.0_deque
+
 ./build/v1.0_list
