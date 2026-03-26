@@ -23,3 +23,17 @@ REZULTATAI.1 : 1 TYRIMAS — Failu kurimo sparta
 | Studentų skirstymo laikas(s):      | 0.000661208 | 0.0110059 | 0.050126 | 0.503981 | 4.96271  |
 | Įrašymo į failus laikas(s):        | 0.00734433  | 0.0344782 | 0.222286 | 2.22069  | 25.1476  |
 | Visos programos veikimo laikas(s): | 0.00967396  | 0.062123  | 0.37293  | 3.68938  | 40.7573  |
+
+
+
+| Failo dydis:          | 1000.txt  | 10000.txt | 100000.txt | 1000000.txt  | 10000000.txt |
+|-----------------------|-----------|-----------|------------|--------------|--------------|
+| 1 Strategija (vector) | 0.00008 s | 0.00072 s | 0.00272 s  | 0.03569 s    | 3.20373      |
+| 2 Strategija (vector) | 0.00105 s | 0.11505 s | 9.13686 s  | 1065.17006 s | >15 min      |
+| 3 Strategija (vector) | 0.00002 s | 0.00012 s | 0.00164 s  | 0.01999 s    |      -       |
+| 1 Strategija (deque)  | 0.00005 s | 0.00045 s | 0.00213 s  | 0.02117 s    | 0.33282 s    |
+| 2 Strategija (deque)  | 0.00165 s | 0.06658 s | 4.29863 s  | 455.74734 s  | >15 min      |
+| 3 Strategija (deque)  | 0.00016 s | 0.00034 s | 0.00295 s  | 0.03310 s    |      -       |
+| 1 Strategija (list)   | 0.00007 s | 0.00059 s | 0.02725 s  | 0.00264 s    | 0.02725 s    |
+| 2 Strategija (list)   | 0.00006 s | 0.00041 s | 0.02560 s  | 0.00251 s    | 0.02560 s    |
+| 3 Strategija (list)   | 0.00003 s | 0.00018 s | 0.01677 s  | 0.00082 s    | 0.01677 s    |
