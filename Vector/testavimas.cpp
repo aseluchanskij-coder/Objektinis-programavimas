@@ -68,4 +68,29 @@ void apdorojimo_testas(const string& failas) {
     ofstream f2("kietuoliai.txt");
     output(f2, kietuoliai);
     f2.close();
+} //mano naudota strategija
+void strategija1(vector<studentas>& grupe, vector<studentas>& vargsai, vector<studentas>& kietuoliai) {
+    for (const auto& s : grupe) {
+        if (s.rez < 5.0) vargsai.push_back(s);
+        else kietuoliai.push_back(s);
+    }
+}
+void strategija2(vector<studentas>& grupe, vector<studentas>& vargsai){
+    auto it = grupe.begin();
+    while (it != grupe.end()) {
+        if (it->rez < 5.0) {
+            vargsai.push_back(*it);
+            it = grupe.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+void strategija3(vector<studentas>& grupe, vector<studentas>& vargsai) {
+    auto it = std::stable_partition(grupe.begin(), grupe.end(), [](const studentas& s) {
+        return s.rez >= 5.0;
+    });
+    
+    vargsai.assign(it, grupe.end());
+    grupe.erase(it, grupe.end());
 }

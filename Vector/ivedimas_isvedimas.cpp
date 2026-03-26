@@ -22,7 +22,7 @@ using std::setprecision;
 using std::sort;
 
 void skaitymas(const string &failo_pav, vector<studentas> &grupe) {
-    std::ifstream failas(failo_pav);
+    std::ifstream failas("duomenys/" + failo_pav);
     if (!failas) {
         throw std::runtime_error("Nepavyko atidaryti failo!");
     }
@@ -65,7 +65,7 @@ void skaitymas(const string &failo_pav, vector<studentas> &grupe) {
     cout << "Duomenys nuskaityti is failo!\n";
 }
 void skaitymas_rez(const string &failo_pav, vector<studentas> &grupe) {
-    std::ifstream failas(failo_pav);
+    std::ifstream failas("duomenys/" + failo_pav);
     if (!failas) {
         throw std::runtime_error("Nepavyko atidaryti failo!");
     }
@@ -99,7 +99,7 @@ void input(vector<studentas> &grupe) {
         if (menu == 6) break;
 
         if (menu == 4) {
-            skaitymas("kursiokai.txt", grupe);
+            skaitymas("duomenys/kursiokai.txt", grupe);
             continue;
         }
         if (menu == 5) {
@@ -281,11 +281,11 @@ void rusiuotistud(vector<studentas> &grupe) {
         std::vector<studentas> vargsai, kietuoliai;
         padalinti_studentus(grupe, vargsai, kietuoliai);
 
-        std::ofstream f_vargsai("vargsai.txt");
+        std::ofstream f_vargsai("duomenys/vargsai.txt");
         output(f_vargsai, vargsai);
         f_vargsai.close();
 
-        std::ofstream f_kietuoliai("kietuoliai.txt");
+        std::ofstream f_kietuoliai("duomenys/kietuoliai.txt");
         output(f_kietuoliai, kietuoliai);
         f_kietuoliai.close();
 

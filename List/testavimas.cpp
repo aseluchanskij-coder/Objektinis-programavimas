@@ -6,13 +6,10 @@
 #include <fstream>
 #include <iostream>
 #include <chrono>
+#include <algorithm>
+#include <iomanip>
 
-using std::list;
-using std::ofstream;
-using std::cout;
-using std::string;
-using std::to_string;
-using std::endl;
+using namespace std;
 using namespace std::chrono;
 
 void failo_kurimo_testas(int kiek)
@@ -38,9 +35,8 @@ void failo_kurimo_testas(int kiek)
          << duration<double>(end-start).count() << endl;
 }
 
-
 void apdorojimo_testas(const string& failas) {
-    std::list<studentas> grupe; 
+    std::list<studentas> grupe;
     std::list<studentas> vargsai, kietuoliai;
 
     cout << "\nPradedamas testas su failu: " << failas << endl;
@@ -56,23 +52,47 @@ void apdorojimo_testas(const string& failas) {
     double t2 = duration<double>(e2 - s2).count();
 
     auto s3 = high_resolution_clock::now();
-    padalinti_studentus(grupe, vargsai, kietuoliai);
+    strategija3(grupe, vargsai);
     auto e3 = high_resolution_clock::now();
     double t3 = duration<double>(e3 - s3).count();
 
-    cout << std::fixed << std::setprecision(4);
+    cout << fixed << setprecision(4);
     cout << "1. Nuskaitymo laikas:  " << t1 << " s" << endl;
     cout << "2. Rusiavimo laikas:    " << t2 << " s" << endl;
     cout << "3. Skirstymo laikas:    " << t3 << " s" << endl;
-    cout << "Is viso studentu: " << grupe.size() 
-     << " (Vargsai: " << vargsai.size() 
-     << ", Kietuoliai: " << kietuoliai.size() << ")" << endl;
-
+    
     ofstream f1("vargsai.txt");
     output(f1, vargsai);
     f1.close();
 
     ofstream f2("kietuoliai.txt");
-    output(f2, kietuoliai);
+    output(f2, grupe);
     f2.close();
+}
+
+void strategija1(std::list<studentas>& grupe, std::list<studentas>& vargsai, std::list<studentas>& kietuoliai) {
+    for (const auto& s : grupe) {
+        if (s.rez < 5.0) vargsai.push_back(s);
+        else kietuoliai.push_back(s);
+    }
+}
+
+void strategija2(std::list<studentas>& grupe, std::list<studentas>& vargsai){
+    auto it = grupe.begin();
+    while (it != grupe.end()) {
+        if (it->rez < 5.0) {
+            vargsai.push_back(*it);
+            it = grupe.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+
+void strategija3(std::list<studentas>& grupe, std::list<studentas>& vargsai) {
+    auto it = std::partition(grupe.begin(), grupe.end(), [](const studentas& s) {
+        return s.rez >= 5.0;
+    });
+    
+    vargsai.splice(vargsai.begin(), grupe, it, grupe.end());
 }
