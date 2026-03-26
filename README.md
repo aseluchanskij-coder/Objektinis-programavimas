@@ -135,12 +135,15 @@ Optimaliausias bendram naudojimui – std::deque.
 
 
 🚀 Getting Started
+
 🔧 Reikalavimai
+
 🐧 Linux
 
 Ubuntu / Debian
 
 sudo apt update
+
 sudo apt install cmake g++ make
 
 Fedora
@@ -152,16 +155,24 @@ Arch Linux
 sudo pacman -S cmake gcc make
 
 🪟 Windows (MSYS2)
+
 pacman -Syu
+
 pacman -Su
+
 pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake make
 
 
 🍏 macOS
+
 xcode-select --install
+
 brew install cmake
+
 ▶️ Paleidimas
+
 git clone -b v1.0 https://github.com/aseluchanskij-coder/Objektinis-programavimas.git 
+
 cd Objektinis-programavimas
 
 mkdir build
