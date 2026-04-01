@@ -68,22 +68,19 @@ void apdorojimo_testas(const string& failas) {
     ofstream f2("kietuoliai.txt");
     output(f2, kietuoliai);
     f2.close();
-} //mano naudota strategija
+} 
 void strategija1(vector<studentas>& grupe, vector<studentas>& vargsai, vector<studentas>& kietuoliai) {
     for (const auto& s : grupe) {
         if (s.rez < 5.0) vargsai.push_back(s);
         else kietuoliai.push_back(s);
     }
-}
+}//pataisyti, trinti is galo ir popint vektoriu,lista,deka.
 void strategija2(vector<studentas>& grupe, vector<studentas>& vargsai){
-    auto it = grupe.begin();
-    while (it != grupe.end()) {
-        if (it->rez < 5.0) {
-            vargsai.push_back(*it);
-            it = grupe.erase(it);
-        } else {
-            ++it;
-        }
+    sort(grupe.begin(), grupe.end(), pagalRez);
+
+    while (!grupe.empty() && grupe.back().rez < 5.0) {
+        vargsai.push_back(grupe.back());
+        grupe.pop_back();
     }
 }
 void strategija3(vector<studentas>& grupe, vector<studentas>& vargsai) {

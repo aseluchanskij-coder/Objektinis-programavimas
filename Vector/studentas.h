@@ -22,5 +22,5 @@ bool pagalVarda(const studentas &a, const studentas &b);
 bool pagalPavarde(const studentas &a, const studentas &b);
 bool pagalVid(const studentas &a, const studentas &b);
 bool pagalMed(const studentas &a, const studentas &b);
-
+bool pagalRez(const studentas &a, const studentas &b);
 #endif

@@ -33,4 +33,6 @@ bool pagalVid(const studentas &a, const studentas &b) {
 bool pagalMed(const studentas &a, const studentas &b) {
     return (a.tipas == "med" ? a.rez : -1) > (b.tipas == "med" ? b.rez : -1);
 }
+bool pagalRez(const studentas &a, const studentas &b) {
+    return a.rez > b.rez; }
 
